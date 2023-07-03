@@ -1,4 +1,4 @@
-import s from './Footer.module.scss'
+import s from '../Footer.module.scss'
 import cn from 'classnames'
 
 const data={
@@ -26,7 +26,7 @@ const data={
 
 const CatalogCategories=({data})=>(
     <ul className={s.categorySublist}>
-        <li className={s.categorySubtitle}>{data.title}</li>
+        <li><h4 className={s.categorySubtitle}>{data.title}</h4></li>
         {data.category.map((el)=> <li><a className={s.link} href="/">{el}</a></li>)}
     </ul>
 )
@@ -38,5 +38,6 @@ export const Catalog=()=>(
             <CatalogCategories data={data.women}/>
             <CatalogCategories data={data.men}/>
         </ul>
+        
     </div>
 );

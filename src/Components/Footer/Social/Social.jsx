@@ -1,4 +1,4 @@
-import s from './Footer.module.scss'
+import s from '../Footer.module.scss'
 import cn from 'classnames'
 
 export const Social=()=>(
