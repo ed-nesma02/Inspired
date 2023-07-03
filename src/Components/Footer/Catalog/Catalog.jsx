@@ -25,10 +25,12 @@ const data={
 }
 
 const CatalogCategories=({data})=>(
-    <ul className={s.categorySublist}>
-        <li><h4 className={s.categorySubtitle}>{data.title}</h4></li>
-        {data.category.map((el)=> <li><a className={s.link} href="/">{el}</a></li>)}
-    </ul>
+    <div>
+        <h4 className={s.categorySubtitle}>{data.title}</h4>
+        <ul className={s.categorySublist}>
+            {data.category.map((el)=> <li><a className={s.link} href="/">{el}</a></li>)}
+        </ul>
+    </div>
 )
 
 export const Catalog=()=>(
