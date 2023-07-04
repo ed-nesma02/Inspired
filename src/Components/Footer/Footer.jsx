@@ -6,10 +6,10 @@ import { Development } from "./Development/Development.jsx";
 import s from './Footer.module.scss'
 import { Social } from "./Social/Social.jsx";
 
-export const Footer=()=>(
+export const Footer=({list})=>(
     <footer>
         <Container className={s.container} >
-            <Catalog/>
+            <Catalog list={list}/>
             <Social/>
             <Contacts/>
             <Copyright/>

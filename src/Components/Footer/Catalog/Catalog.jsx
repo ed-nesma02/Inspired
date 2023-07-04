@@ -1,44 +1,29 @@
+import { NavLink } from 'react-router-dom';
 import s from '../Footer.module.scss'
 import cn from 'classnames'
 
-const data={
-    women:{
-        title: 'Женщины',
-        category:[
-            'Бюстгальтеры',  
-            'Трусы',
-            'Носки',
-            'Халаты',
-            'Термобелье',
-            'Пижамы',
-        ]
-    },
-    men:{
-        title: 'Мужчины',
-        category:[  
-            'Трусы',
-            'Носки',
-            'Халаты',
-            'Термобелье',
-        ]
-    }
-}
-
-const CatalogCategories=({data})=>(
-    <div>
-        <h4 className={s.categorySubtitle}>{data.title}</h4>
-        <ul className={s.categorySublist}>
-            {data.category.map((el)=> <li><a className={s.link} href="/">{el}</a></li>)}
-        </ul>
-    </div>
-)
-
-export const Catalog=()=>(
+export const Catalog=({list})=>(
     <div className={s.category}>
         <h3 className={cn(s.categoryTitle, s.title)}>Каталог</h3>
         <ul className={s.categoryList}>
-            <CatalogCategories data={data.women}/>
-            <CatalogCategories data={data.men}/>
+            {list.map(item=>(
+                <li key={item.link} className={s.categories}>
+                    <h3 className={s.categorySubtitle}>
+                        <NavLink to={item.link} className={s.link}>
+                            {item.title}
+                        </NavLink>
+                    </h3>
+                    <ul className={s.categorySublist}>
+                        {item.categories.map(category=>(
+                            <li key={category.link}>
+                                <NavLink className={s.link} to={`${item.link}/${category.link}`}>
+                                    {category.title}
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
+                </li>    
+            ))}
         </ul>
         
     </div>

@@ -1,7 +1,6 @@
 import cn from 'classnames';
-import style from './Container.module.scss';
-console.log('style:', style);
+import s from './Container.module.scss';
 
 export const Container =({className, children})=>(
-    <div className={cn(style.container, className)}>{children}</div>
+    <div className={cn(s.container, className)}>{children}</div>
 );
