@@ -10,11 +10,11 @@ export const fetchColors = createAsyncThunk(
     }
 )
 
-const colorsSlice = createSlice({
-    name: 'colors',
+const colorSlice = createSlice({
+    name: 'color',
     initialState:{
         status:'idle',
-        colorsList:[],
+        colorList:[],
         error: null,
     }, 
     extraReducers: (builder)=>{
@@ -24,8 +24,7 @@ const colorsSlice = createSlice({
             })
             .addCase(fetchColors.fulfilled, (state, action)=>{
                 state.status = 'success';
-                state.colorsList = action.payload;
-                console.log(state.colorsList);
+                state.colorList = action.payload;
             })
             .addCase(fetchColors.rejected, (state, action)=>{
                 state.status = 'failed';
@@ -35,4 +34,4 @@ const colorsSlice = createSlice({
 });
 
 
-export default colorsSlice.reducer;
+export default colorSlice.reducer;

@@ -27,9 +27,6 @@ export const App=()=>{
   
   useEffect(()=>{
     dispath(fetchNavigation());
-  }, [dispath]);
-
-  useEffect(()=>{
     dispath(fetchColors());
   }, [dispath]);
 
