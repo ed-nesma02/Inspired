@@ -3,35 +3,34 @@ import { Container } from '../Layout/Container/Container'
 import s from './Banner.module.scss'
 import { API_URL } from '../../const'
 import { useMedia } from 'react-use'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState} from 'react'
+import { useSelector } from "react-redux";
 
 export const Banner = ({ data, category })=>{
     const isMobile = useMedia('(max-width: 540px)');
     const isTablet = useMedia('(max-width: 768px)');
     const isLaptop = useMedia('(max-width: 1024px)');
-    const permissionScreen= data?.bg.desktop;
+    const {activeGender}=useSelector(state=>state.navigation);
+    const [permission, setPermission] = useState();
 
 useEffect(() => {
     if (isMobile) {
-        const permissionScreen= data?.bg.mobile;
-        console.log('Мобильное разрешение');
+        setPermission(data?.bg.mobile)
     } else if (isTablet) {
-        const permissionScreen= data?.bg.tablet;
-        console.log('Разрешение планшета');
+        setPermission(data?.bg.tablet)
     } else if (isLaptop) {
-        const permissionScreen= data?.bg.laptop;
-        console.log('Разрешение ноутбука');
+        setPermission(data?.bg.laptop)
     } else {
-       const permissionScreen= data?.bg.desktop;
-       console.log('Десктопное разрешение');
+        setPermission(data?.bg.desktop)
     }
-}, [isMobile, isTablet, isLaptop]);
+}, [isMobile, isTablet, isLaptop, activeGender]);
 
     return(
     (!category&&data)&&
     <section 
         className={s.banner}
-        style={{backgroundImage:`url(${API_URL}/${permissionScreen})`}}>
+        style={{backgroundImage:`url(${API_URL}/${(permission ? permission : data?.bg.desktop)})`}}
+        >
         <Container>
             <div className={s.content}>
                 <h2 className={s.title}>{data.description}</h2>
