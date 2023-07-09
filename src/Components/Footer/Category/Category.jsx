@@ -13,14 +13,14 @@ export const Category=()=>{
             {genderList.map(gender=>(
                 <li key={gender} className={s.categories}>
                     <h3 className={s.categorySubtitle}>
-                        <NavLink to={gender} className={s.link}>
+                        <NavLink to={`/catalog/${gender}`} className={s.link}>
                             {categories[gender].title}
                         </NavLink>
                     </h3>
                     <ul className={s.categorySublist}>
                         {categories[gender]?.list?.map(item=>(
                             <li key={item.slug}>
-                                <NavLink className={s.link} to={`${gender}/${item.slug}`}>
+                                <NavLink className={s.link} to={`/catalog/${gender}/${item.slug}`}>
                                     {item.title}
                                 </NavLink>
                             </li>
