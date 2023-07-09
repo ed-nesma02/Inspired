@@ -13,6 +13,7 @@ export const Banner = ({ data, category })=>{
     const {activeGender}=useSelector(state=>state.navigation);
     const [permission, setPermission] = useState();
 
+    
 useEffect(() => {
     if (isMobile) {
         setPermission(data?.bg.mobile)
