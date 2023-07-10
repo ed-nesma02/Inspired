@@ -29,7 +29,7 @@ export const MainPage=()=>{
 
     return (
         <>
-        <Banner data={genderData?.banner} category={category}/>
+        {!category&&genderData?.banner&&<Banner data={genderData?.banner} category={category}/>}
         <Goods categoryData={genderData?.list.find(item => item.slug === category)}/>
         </>
     )

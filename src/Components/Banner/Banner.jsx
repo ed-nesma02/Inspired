@@ -1,9 +1,9 @@
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Container } from '../Layout/Container/Container'
 import s from './Banner.module.scss'
 import { API_URL } from '../../const'
 import { useMedia } from 'react-use'
-import { useEffect, useRef, useState} from 'react'
+import { useEffect, useState} from 'react'
 import { useSelector } from "react-redux";
 
 export const Banner = ({ data, category })=>{
@@ -11,9 +11,8 @@ export const Banner = ({ data, category })=>{
     const isTablet = useMedia('(max-width: 768px)');
     const isLaptop = useMedia('(max-width: 1024px)');
     const {activeGender}=useSelector(state=>state.navigation);
-    const [permission, setPermission] = useState();
+    const [permission, setPermission] = useState(data?.bg.desktop);
 
-    
 useEffect(() => {
     if (isMobile) {
         setPermission(data?.bg.mobile)
@@ -27,10 +26,9 @@ useEffect(() => {
 }, [isMobile, isTablet, isLaptop, activeGender]);
 
     return(
-    (!category&&data)&&
     <section 
         className={s.banner}
-        style={{backgroundImage:`url(${API_URL}/${(permission ? permission : data?.bg.desktop)})`}}
+        style={{backgroundImage:`url(${API_URL}/${permission})`}}
         >
         <Container>
             <div className={s.content}>
