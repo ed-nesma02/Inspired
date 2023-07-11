@@ -4,31 +4,28 @@ import s from './Banner.module.scss'
 import { API_URL } from '../../const'
 import { useMedia } from 'react-use'
 import { useEffect, useState} from 'react'
-import { useSelector } from "react-redux";
 
-export const Banner = ({ data, category })=>{
+export const Banner = ({ data})=>{
     const isMobile = useMedia('(max-width: 540px)');
     const isTablet = useMedia('(max-width: 768px)');
     const isLaptop = useMedia('(max-width: 1024px)');
-    const {activeGender}=useSelector(state=>state.navigation);
-    const [permission, setPermission] = useState(data?.bg.desktop);
-
+    const [bgURL, setBgURL] = useState();
 useEffect(() => {
     if (isMobile) {
-        setPermission(data?.bg.mobile)
+        setBgURL(data?.bg.mobile)
     } else if (isTablet) {
-        setPermission(data?.bg.tablet)
+        setBgURL(data?.bg.tablet)
     } else if (isLaptop) {
-        setPermission(data?.bg.laptop)
+        setBgURL(data?.bg.laptop)
     } else {
-        setPermission(data?.bg.desktop)
+        setBgURL(data?.bg.desktop)
     }
-}, [isMobile, isTablet, isLaptop, activeGender]);
+}, [isMobile, isTablet, isLaptop, data]);
 
     return(
     <section 
         className={s.banner}
-        style={{backgroundImage:`url(${API_URL}/${permission})`}}
+        style={{backgroundImage:`url(${API_URL}/${bgURL})`}}
         >
         <Container>
             <div className={s.content}>
