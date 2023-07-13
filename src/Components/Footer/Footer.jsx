@@ -8,12 +8,14 @@ import { Social } from "./Social/Social.jsx";
 
 export const Footer=()=>(
     <footer>
-        <Container className={s.container} >
-            <Category/>
-            <Social/>
-            <Contacts/>
-            <Copyright/>
-            <Development/>
+        <Container>
+            <div className={s.container}>
+                <Category/>
+                <Social/>
+                <Contacts/>
+                <Copyright/>
+                <Development/>
+            </div>
         </Container>
     </footer>
 );

@@ -15,7 +15,7 @@ export const ProductSize= ({size, selectedSize, handleSizeChange})=>{
                             type='radio' 
                             name='size'
                             value={item}
-                            checked={selectedSize ? selectedSize===item : ''}
+                            checked={selectedSize===item}
                             onChange={handleSizeChange}
                         />
                         <span className={s.check}>{item}</span>

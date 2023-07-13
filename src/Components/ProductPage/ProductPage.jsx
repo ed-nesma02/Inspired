@@ -7,12 +7,12 @@ import { useParams } from 'react-router-dom'
 import { API_URL } from '../../const'
 import cn from 'classnames'
 import {ColorList} from '../ColorList/ColorList'
-import { ReactComponent as Like} from '../../assets/heart.svg'
 import { Count } from '../Count/Count'
 import { ProductSize } from '../ProductSize/ProductSize'
 import { Goods } from '../Goods/Goods'
-import { fetchCategory, fetchGender } from '../../features/goodsSlice'
+import { fetchCategory } from '../../features/goodsSlice'
 import { setActiveGender } from '../../features/navigationSlice'
+import { BtnLike } from '../BtnLike/BtnLike'
 
 export const ProductPage = ()=>{
     const dispath = useDispatch();
@@ -80,12 +80,12 @@ export const ProductPage = ()=>{
                         <Count classNames={s.count} count={count} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
                         <button className={s.addCart} type='submit'>В корзину</button>
                         <button className={s.favorite} aria-label='Добавить в избранное' type='button'>
-                            <Like/>
+                            <BtnLike id={id}/>
                         </button>
                     </div>
                 </form>
             </Container>
         </section>
-        <Goods titleMain='Вам также может понравиться'/>
+        <Goods title='Вам также может понравиться'/>
         </>
 )}
