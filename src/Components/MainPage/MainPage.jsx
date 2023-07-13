@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategory, fetchGender } from "../../features/goodsSlice";
@@ -14,7 +14,7 @@ export const MainPage=()=>{
     const genderData = categories[activeGender];
     const categoryData=genderData?.list.find(item => item.slug === category);
     const page = usePageFromSearchParams(dispath);
-
+    
     useEffect(()=>{
         if(gender){
             dispath(setActiveGender(gender));

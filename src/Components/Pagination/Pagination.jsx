@@ -5,23 +5,25 @@ import cn from 'classnames';
 import { setPage } from '../../features/goodsSlice';
 import { ReactComponent as ArrowRight } from "../../assets/arrow_right.svg"
 import { ReactComponent as ArrowLeft } from "../../assets/arrow_left.svg"
+import { usePageFromSearchParams } from '../../hooks/usePageFromSearchParams';
 
 export const Pagination = ()=>{
     const pathname =  useLocation().pathname;
     const {page, pages} = useSelector(state=>state.goods);
     const dispath = useDispatch();
+    const pageActive = usePageFromSearchParams(dispath);
 
     const handlePageChange = (NewPage =>{
         dispath(setPage(NewPage));
     })
     const handlePrevPage =()=>{
         if(page>1){
-            handlePageChange(page-1);
+            handlePageChange(page - 1);
         }
     }
     const handleNextPage = ()=>{
         if(page<pages){
-            handlePageChange(page+1);
+            handlePageChange(page + 1);
         }
     }
 
@@ -38,7 +40,7 @@ export const Pagination = ()=>{
                 <li key={i} className={s.item}>
                     <NavLink 
                     to={`${pathname}?page=${i}`}
-                    className={cn(s.link, i === +page ? s.linkActive : '')}
+                    className={cn(s.link, i === +pageActive  ? s.linkActive : '')}
                     onClick={() => handlePageChange(i)}
                     >
                     {i}
