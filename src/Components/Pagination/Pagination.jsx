@@ -2,37 +2,42 @@ import { NavLink, useLocation } from 'react-router-dom'
 import s from './Pagination.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
-import { setPage } from '../../features/goodsSlice';
 import { ReactComponent as ArrowRight } from "../../assets/arrow_right.svg"
 import { ReactComponent as ArrowLeft } from "../../assets/arrow_left.svg"
 import { usePageFromSearchParams } from '../../hooks/usePageFromSearchParams';
+import { useEffect, useState } from 'react';
 
 export const Pagination = ()=>{
     const pathname =  useLocation().pathname;
     const {page, pages} = useSelector(state=>state.goods);
+    const [pagePagination, setPagePagination] = useState('');
     const dispath = useDispatch();
     const pageActive = usePageFromSearchParams(dispath);
 
+    useEffect(()=>{
+        setPagePagination(page);
+    }, [page, setPagePagination])
+
     const handlePageChange = (NewPage =>{
-        dispath(setPage(NewPage));
+        setPagePagination(NewPage);
     })
     const handlePrevPage =()=>{
         if(page>1){
-            handlePageChange(page - 1);
+            handlePageChange(pagePagination - 1);
         }
     }
     const handleNextPage = ()=>{
         if(page<pages){
-            handlePageChange(page + 1);
+            handlePageChange(pagePagination + 1);
         }
     }
 
     const renderPaginationItems = ()=>{
         const paginationItems = [];
-        let startPage = Math.max(1, page - 1);
+        let startPage = Math.max(1, pagePagination - 1);
         let endPage = Math.min(startPage + 2, pages);
-        if(pages===page && pages>=3){
-            startPage = page-2;
+        if(pages === pagePagination && pages>=3){
+            startPage = pagePagination-2;
         }
 
         for(let i = startPage; i <= endPage; i++){
@@ -57,7 +62,7 @@ export const Pagination = ()=>{
             <button 
                 className={s.arrow} 
                 onClick={handlePrevPage} 
-                disabled={page <= 2} 
+                disabled={pagePagination <= 2} 
             >
                 <ArrowLeft/>
             </button>}
@@ -66,7 +71,7 @@ export const Pagination = ()=>{
             <button 
                 className={s.arrow} 
                 onClick={handleNextPage}
-                disabled = {page >= pages-1 || pages <= 3 } 
+                disabled = {pagePagination >= pages-1 || pages <= 3 } 
             >
                 <ArrowRight/>
             </button>}
