@@ -22,12 +22,12 @@ export const Pagination = ()=>{
         setPagePagination(NewPage);
     })
     const handlePrevPage =()=>{
-        if(page>1){
+        if(pagePagination>1){
             handlePageChange(pagePagination - 1);
         }
     }
     const handleNextPage = ()=>{
-        if(page<pages){
+        if(pagePagination<pages){
             handlePageChange(pagePagination + 1);
         }
     }
