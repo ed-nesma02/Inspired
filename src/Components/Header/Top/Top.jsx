@@ -6,8 +6,22 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as LikeSVG } from "../../../assets/heart.svg"
 import { ReactComponent as SearchSVG } from "../../../assets/search.svg"
 import { ReactComponent as CartSVG } from "../../../assets/cart.svg"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-export const Top = ()=>(
+export const Top = ()=>{
+    const {countItems, cartItems} = useSelector(state => state.cart);
+    const [countItemsCart, setCountItemsCart] = useState(countItems);
+    
+    useEffect(()=>{
+        if(cartItems.length>countItemsCart){
+            setCountItemsCart(countItemsCart + 1);
+        } else if(cartItems.length<countItemsCart){
+            setCountItemsCart(countItemsCart - 1);
+        }
+    },[cartItems])
+
+    return (
     <div className={s.top}>
         <Container className={s.topContainer}>
             <a className={cn(s.topLink, s.topPhone)} href="tel:89304902620">8 930 490 26 20</a>
@@ -24,10 +38,11 @@ export const Top = ()=>(
                     <li className={s.navItem}>
                         <NavLink to={'/cart'} className={s.topLink}>
                             <CartSVG/>
+                            <span className={s.topLinkCount}>{countItemsCart}</span>
                         </NavLink>
                     </li>
                     <li className={s.navItem}>
-                        <NavLink to={'/favorite'} className={cn(s.topLink, s.like)}>
+                        <NavLink to={'/favorite?page=1'} className={cn(s.topLink, s.like)}>
                             <LikeSVG/>
                         </NavLink>
                     </li>
@@ -35,4 +50,4 @@ export const Top = ()=>(
             </div>
         </Container>
     </div>
-);
+)};

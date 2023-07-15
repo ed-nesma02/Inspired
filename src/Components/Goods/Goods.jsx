@@ -8,12 +8,14 @@ import { useEffect } from "react";
 import { fetchCategory } from "../../features/goodsSlice";
 
 export const Goods = ({title})=>{
-    const {goodsList}=useSelector(state=>state.goods) 
+    const {goodsList, totalCount}=useSelector(state=>state.goods) 
 
     return(
     <section className={s.goods}>
             <Container>
-                <h2 className={s.title}>{title ?? 'Новинки'}</h2>
+                <h2 className={s.title}>{title ?? 'Новинки'}
+                {totalCount && title !== "Вам также может понравиться" && <sup>({totalCount})</sup>}
+                </h2>
                 <ul className={s.list}>
                     {goodsList?.map(item=> (
                     <li key={item.id}>

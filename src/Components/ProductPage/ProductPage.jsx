@@ -13,11 +13,14 @@ import { Goods } from '../Goods/Goods'
 import { fetchCategory } from '../../features/goodsSlice'
 import { setActiveGender } from '../../features/navigationSlice'
 import { BtnLike } from '../BtnLike/BtnLike'
+import { addToCart } from '../../features/cartSlice'
 
 export const ProductPage = ()=>{
     const dispath = useDispatch();
     const {id} =useParams();
     const {product} = useSelector(state=>state.product)
+    const {colors} = product;
+    const {colorList}=useSelector(state=>state.color); 
 
     const [count, setCount]=useState(1);
     const [selectedColor, setSelectedColor] = useState('');
@@ -25,35 +28,46 @@ export const ProductPage = ()=>{
 
     const handleIncrement =()=>{
         setCount((prevCount) => ++prevCount)
-    }
+    };
     const handleDecrement =()=>{
         if(count>1){
             setCount((prevCount) => --prevCount)
         }
-    }
+    };
 
     const handleColorChange = (e)=>{
         setSelectedColor(e.target.value);
-    }
+    };
     const handleSizeChange = (e)=>{
         setSelectedSize(e.target.value);
-    }
+    };
 
     useEffect(()=>{
         dispath(fetchProduct(id));
-    },[dispath, id])
+    },[dispath, id]);
 
     useEffect(()=>{
         dispath(setActiveGender(product.gender));
         dispath(fetchCategory({gender:product.gender, category:product.category,count:'4', top:'true', exclude:product.id}));
-    },[product, dispath])
+    },[product, dispath]);
+
+    useEffect(()=>{
+        if(colorList?.length && colors?.length){
+            setSelectedColor(colorList.find(color => color.id === colors[0]).title)
+        }
+    }, [colorList, colors]);
     
     return(
         <>
         <section className={s.card}>
             <Container className={s.container}>
                 <img src={`${API_URL}/${product.pic}`} alt={`${product.title} ${product.description}`} className={s.image} />
-                <form action="" className={s.content}>
+                <form action="" className={s.content} onSubmit={e =>{
+                    e.preventDefault();
+                    dispath(addToCart({
+                        id, color: selectedColor, size: selectedSize, count
+                    }))
+                }}>
                     <h2 className={s.title}>
                         {product.title}
                     </h2>
@@ -64,7 +78,7 @@ export const ProductPage = ()=>{
                     </div>
                     <div className={s.color}>
                         <p className={cn(s.subtitle, s.colorTitle)}>Цвет</p>
-                        <ColorList colors={product.colors} 
+                        <ColorList colors={colors} 
                             selectedColor={selectedColor} 
                             handleColorChange={handleColorChange}/>
                     </div>
@@ -78,10 +92,8 @@ export const ProductPage = ()=>{
                     </div>
                     <div className={s.control}>
                         <Count classNames={s.count} count={count} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
-                        <button className={s.addCart} type='submit'>В корзину</button>
-                        <button className={s.favorite} aria-label='Добавить в избранное' type='button'>
-                            <BtnLike id={id}/>
-                        </button>
+                        <button className={s.addCart} disabled={!selectedSize} type='submit'>В корзину</button>
+                        <BtnLike id={id}/>
                     </div>
                 </form>
             </Container>

@@ -1,0 +1,10 @@
+.like {
+  color: transparent;
+}
+.like:hover {
+  color: crimson;
+}
+
+.active {
+  color: crimson;
+}

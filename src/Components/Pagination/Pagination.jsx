@@ -69,8 +69,8 @@ export const Pagination = ()=>{
             <ul className={s.list}>{renderPaginationItems()}</ul>
             {pages>3 && 
             <button 
-                className={s.arrow} 
-                onClick={handleNextPage}
+                className = {s.arrow} 
+                onClick = {handleNextPage}
                 disabled = {pagePagination >= pages-1 || pages <= 3 } 
             >
                 <ArrowRight/>
