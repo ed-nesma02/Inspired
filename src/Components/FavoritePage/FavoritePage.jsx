@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { fetchCategory } from "../../features/goodsSlice";
 import { usePageFromSearchParams } from "../../hooks/usePageFromSearchParams";
 import s from './FavoritePage.module.scss'
+import { Container } from "../Layout/Container/Container";
 
 export const FavoritePage = () =>{
     const dispath = useDispatch();
@@ -24,7 +25,11 @@ export const FavoritePage = () =>{
     <>
     {favorites.length ? 
         <Goods title='Избранное'/> 
-        : 
-        <h3 className={s.empty}>Вы ничего не добавили в избранное</h3>}
+        :
+        <Container >
+            <h2 className={s.title}>Избранное</h2>
+            <h3 className={s.empty}>Вы ничего не добавили в избранное</h3>
+        </Container>
+    }
     </>
 )}

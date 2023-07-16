@@ -8,20 +8,17 @@ import { ReactComponent as SearchSVG } from "../../../assets/search.svg"
 import { ReactComponent as CartSVG } from "../../../assets/cart.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { toggleSearch } from "../../../features/searchSlice.js";
 
 export const Top = ()=>{
-    const {cartItems} = useSelector(state => state.cart);
+    const {countItems} = useSelector(state => state.cart);
     const countFavorites=useSelector(state=>state.favorites)
-    const [countItemsCart, setCountItemsCart] = useState(cartItems.length);
     const [countFavorits, setCountFavorits] = useState(countFavorites.length);
+    const dispath = useDispatch();
 
-    useEffect(()=>{
-        if(cartItems.length>countItemsCart){
-            setCountItemsCart(countItemsCart + 1);
-        } else if(cartItems.length<countItemsCart){
-            setCountItemsCart(countItemsCart - 1);
-        }
-    },[cartItems])
+    const handleOpenSearch= () =>{
+        dispath(toggleSearch());
+    }
 
     useEffect(()=>{
         if(countFavorites.length>countFavorits){
@@ -41,14 +38,14 @@ export const Top = ()=>{
             <div className={s.topNavigation}>
                 <ul className={s.topNavList}>
                     <li className={s.navItem}>
-                        <button className={s.topLink}>
+                        <button className={s.topLink} onClick={handleOpenSearch}>
                             <SearchSVG/>
                         </button>
                     </li>
                     <li className={s.navItem}>
                         <NavLink to={'/cart'} className={s.topLink}>
                             <CartSVG/>
-                            <span className={s.topLinkCount}>{countItemsCart}</span>
+                            <span className={s.topLinkCount}>{countItems}</span>
                         </NavLink>
                     </li>
                     <li className={s.navItem}>

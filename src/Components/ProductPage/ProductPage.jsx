@@ -14,11 +14,12 @@ import { fetchCategory } from '../../features/goodsSlice'
 import { setActiveGender } from '../../features/navigationSlice'
 import { BtnLike } from '../BtnLike/BtnLike'
 import { addToCart } from '../../features/cartSlice'
+import { Preloader } from '../Preloader/Preloader'
 
 export const ProductPage = ()=>{
     const dispath = useDispatch();
     const {id} =useParams();
-    const {product} = useSelector(state=>state.product)
+    const {product, status} = useSelector(state=>state.product)
     const {colors} = product;
     const {colorList}=useSelector(state=>state.color); 
 
@@ -57,16 +58,17 @@ export const ProductPage = ()=>{
         }
     }, [colorList, colors]);
     
-    return(
+    return status==="loading" ? <Preloader/> : (
         <>
         <section className={s.card}>
             <Container className={s.container}>
                 <img src={product.pic ? `${API_URL}/${product.pic}` : ''} alt={`${product.title} ${product.description}`} className={s.image} />
                 <form action="" className={s.content} onSubmit={e =>{
                     e.preventDefault();
+                    if(selectedSize){
                     dispath(addToCart({
                         id, color: selectedColor, size: selectedSize, count
-                    }))
+                    }))}
                 }}>
                     <h2 className={s.title}>
                         {product.title}
@@ -92,7 +94,7 @@ export const ProductPage = ()=>{
                     </div>
                     <div className={s.control}>
                         <Count classNames={s.count} count={count} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
-                        <button className={s.addCart} disabled={!selectedSize} type='submit'>В корзину</button>
+                        <button className={s.addCart} type='submit'>В корзину</button>
                         <BtnLike id={id}/>
                     </div>
                 </form>

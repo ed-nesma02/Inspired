@@ -14,6 +14,12 @@ export const CartItem = ({id, color, size, count, goodsList}) =>{
         dispath(addToCart({id, color, size, count}))
     }
 
+    const handleRemoveItem = (e) =>{
+        dispath(removeFromCart(
+           { id, color, size, count}
+        ))
+    }
+
     return(
         <article className={s.item}>
             <img className={s.image} src={`${API_URL}/${item?.pic}`} alt={item?.title} />
@@ -43,11 +49,7 @@ export const CartItem = ({id, color, size, count, goodsList}) =>{
             </div>
             
             <button className={s.del} aria-label='Удалить товар из корзины'
-                onClick={e=>{
-                    dispath(removeFromCart(
-                       { id, color, size, count}
-                    ))
-                }}
+                onClick={handleRemoveItem}
             ></button>
             <Count
                 className={s.count}
