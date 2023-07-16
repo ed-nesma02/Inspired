@@ -61,7 +61,7 @@ export const ProductPage = ()=>{
         <>
         <section className={s.card}>
             <Container className={s.container}>
-                <img src={`${API_URL}/${product.pic}`} alt={`${product.title} ${product.description}`} className={s.image} />
+                <img src={product.pic ? `${API_URL}/${product.pic}` : ''} alt={`${product.title} ${product.description}`} className={s.image} />
                 <form action="" className={s.content} onSubmit={e =>{
                     e.preventDefault();
                     dispath(addToCart({
