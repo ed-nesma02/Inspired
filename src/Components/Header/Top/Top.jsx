@@ -10,9 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 export const Top = ()=>{
-    const {countItems, cartItems} = useSelector(state => state.cart);
-    const [countItemsCart, setCountItemsCart] = useState(countItems);
-    
+    const {cartItems} = useSelector(state => state.cart);
+    const countFavorites=useSelector(state=>state.favorites)
+    const [countItemsCart, setCountItemsCart] = useState(cartItems.length);
+    const [countFavorits, setCountFavorits] = useState(countFavorites.length);
+
     useEffect(()=>{
         if(cartItems.length>countItemsCart){
             setCountItemsCart(countItemsCart + 1);
@@ -20,6 +22,14 @@ export const Top = ()=>{
             setCountItemsCart(countItemsCart - 1);
         }
     },[cartItems])
+
+    useEffect(()=>{
+        if(countFavorites.length>countFavorits){
+            setCountFavorits(countFavorits + 1);
+        } else if(countFavorites.length<countFavorits){
+            setCountFavorits(countFavorits - 1);
+        }
+    },[countFavorites])
 
     return (
     <div className={s.top}>
@@ -44,6 +54,7 @@ export const Top = ()=>{
                     <li className={s.navItem}>
                         <NavLink to={'/favorite?page=1'} className={cn(s.topLink, s.like)}>
                             <LikeSVG/>
+                            <span className={s.topLinkCount}>{countFavorites.length}</span>
                         </NavLink>
                     </li>
                 </ul>
