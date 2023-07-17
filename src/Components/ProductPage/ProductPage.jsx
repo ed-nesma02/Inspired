@@ -17,7 +17,7 @@ import { addToCart } from '../../features/cartSlice'
 import { Preloader } from '../Preloader/Preloader'
 
 export const ProductPage = ()=>{
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const {id} =useParams();
     const {product, status} = useSelector(state=>state.product)
     const {colors} = product;
@@ -44,13 +44,13 @@ export const ProductPage = ()=>{
     };
 
     useEffect(()=>{
-        dispath(fetchProduct(id));
-    },[dispath, id]);
+        dispatch(fetchProduct(id));
+    },[dispatch, id]);
 
     useEffect(()=>{
-        dispath(setActiveGender(product.gender));
-        dispath(fetchCategory({gender:product.gender, category:product.category,count:'4', top:'true', exclude:product.id}));
-    },[product, dispath]);
+        dispatch(setActiveGender(product.gender));
+        dispatch(fetchCategory({gender:product.gender, category:product.category,count:'4', top:'true', exclude:product.id}));
+    },[product, dispatch]);
 
     useEffect(()=>{
         if(colorList?.length && colors?.length){
@@ -66,7 +66,7 @@ export const ProductPage = ()=>{
                 <form action="" className={s.content} onSubmit={e =>{
                     e.preventDefault();
                     if(selectedSize){
-                    dispath(addToCart({
+                        dispatch(addToCart({
                         id, color: selectedColor, size: selectedSize, count
                     }))}
                 }}>

@@ -14,10 +14,7 @@ export const FavoritePage = () =>{
     const page = usePageFromSearchParams(dispath);
     const navigate = useNavigate();
 
-    console.log(pages);
-
     useEffect(()=>{
-        console.log(favorites.length%12)
         if(favorites){
             const param = {list : favorites};
             const favoritesLength = favorites.length;

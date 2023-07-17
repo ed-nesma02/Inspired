@@ -7,7 +7,7 @@ export const Development=()=>(
                 <a className={s.link} href="https://t.me/Mrshmallowww"> Anastasia Ilina</a>
             </li>
             <li>Developer: 
-                <a className={s.link} href="/"> Edward Nesmashnyi</a>
+                <a className={s.link} href="https://t.me/nesma02"> Edward Nesmashnyi</a>
             </li>
         </ul>
     </div>

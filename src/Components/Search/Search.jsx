@@ -40,7 +40,7 @@ export const Search = ()=>{
                             placeholder='Найти...' 
                         />
                         <ErrorMessage name='search' className={s.error} component={"p"} />
-                        <button className={s.btn} type='submit' >Submit</button>
+                        <button className={s.btn} type='submit'>Искать</button>
                     </Form>
                 </Formik>
             </Container>
