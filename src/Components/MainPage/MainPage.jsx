@@ -6,6 +6,7 @@ import { setActiveGender } from "../../features/navigationSlice";
 import { Goods } from "../Goods/Goods";
 import { Banner } from "../Banner/Banner";
 import { usePageFromSearchParams } from "../../hooks/usePageFromSearchParams";
+import { Preloader } from "../Preloader/Preloader";
 
 export const MainPage=()=>{
     const {gender, category} = useParams();
@@ -40,10 +41,12 @@ export const MainPage=()=>{
         }
     },[page, gender, category ,dispath])
 
-    return (
-        <>
+    return ( !genderList ?
+         <Preloader/> 
+        :
+        (<>
         {!category && genderData?.banner && <Banner data={genderData?.banner} category={category}/>}
         <Goods title={categoryData?.title}/>
-        </>
+        </>)
     )
 }

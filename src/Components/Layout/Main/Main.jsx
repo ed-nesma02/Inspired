@@ -10,6 +10,10 @@ export const Main =({children})=>{
     const navigate = useNavigate();
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
         if(!status && location.pathname !== '/404') {
             navigate('/404');
         }
