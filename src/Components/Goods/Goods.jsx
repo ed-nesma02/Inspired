@@ -14,13 +14,13 @@ export const Goods = ({title})=>{
                 <h2 className={s.title}>{title ?? 'Новинки'}
                 {totalCount && title !== "Вам также может понравиться" && <sup> ({totalCount})</sup>}
                 </h2>
-                {status==='loading' 
+                {status!=='success' 
                 ? 
                 (<Preloader/>)
                 :
                 (<>
                 <ul className={s.list}>
-                    {goodsList?.map(item=> (
+                    {goodsList?.map(item => (
                     <li key={item.id}>
                         <Product {...item}/>
                     </li>))}

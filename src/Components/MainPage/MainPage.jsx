@@ -10,22 +10,21 @@ import { Preloader } from "../Preloader/Preloader";
 
 export const MainPage=()=>{
     const {gender, category} = useParams();
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const {activeGender, categories, genderList}=useSelector(state=>state.navigation);
-    const {status}=useSelector(state=>state.goods) 
     const genderData = categories[activeGender];
     const categoryData=genderData?.list.find(item => item.slug === category);
-    const page = usePageFromSearchParams(dispath);
+    const page = usePageFromSearchParams(dispatch);
     
     useEffect(()=>{
         if(gender){
-            dispath(setActiveGender(gender));
+            dispatch(setActiveGender(gender));
         }else if(genderList[0]){
-            dispath(setActiveGender(genderList[0]));
-            dispath(fetchGender(genderList[0]));
+            dispatch(setActiveGender(genderList[0]));
+            dispatch(fetchGender(genderList[0]));
         }
 
-    },[gender, dispath, genderList])
+    },[gender, dispatch, genderList])
 
     useEffect(()=>{
         if(gender && category){
@@ -33,21 +32,19 @@ export const MainPage=()=>{
             if(page){
                 param.page = page;
             }
-            dispath(fetchCategory(param))
+            dispatch(fetchCategory(param))
             return;
         }
         if(gender){
-            dispath(fetchGender(gender));
+            dispatch(fetchGender(gender));
             return;
         }
-    },[page, gender, category ,dispath])
+    },[page, gender, category ,dispatch])
 
-    return ( status==='loading' ?
-         <Preloader/> 
-        :
-        (<>
+    return ( 
+        <>
         {!category && genderData?.banner && <Banner data={genderData?.banner} category={category}/>}
         <Goods title={categoryData?.title}/>
-        </>)
+        </>
     )
 }

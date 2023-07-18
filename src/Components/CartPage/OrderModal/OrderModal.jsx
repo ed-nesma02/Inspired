@@ -6,10 +6,10 @@ import { clearCart } from "../../../features/cartSlice";
 export const OrderModal = ()=>{
     const {order:{values, order, id, totalPrice}} = useSelector(state=> state.cart);
     const {goodsList} = useSelector(state=> state.goods);
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
 
     const nadleCloseModal = () => {
-        dispath(clearCart());
+        dispatch(clearCart());
     }
     const handleModalClick = (ev)=>{
         ev.stopPropagation();

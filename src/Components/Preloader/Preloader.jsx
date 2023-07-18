@@ -12,7 +12,7 @@ export const Preloader = ()=>(
             height="80" 
             width="80" 
             radius="9"
-            color="#8a8a8a" 
+            color="#8A8A8A" 
         />
     </div>
 )

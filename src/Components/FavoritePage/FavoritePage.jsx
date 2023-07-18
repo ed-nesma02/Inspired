@@ -8,10 +8,9 @@ import { Container } from "../Layout/Container/Container";
 import { useNavigate } from "react-router-dom";
 
 export const FavoritePage = () =>{
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const favorites = useSelector(state => state.favorites);
-    const {pages} = useSelector(state=> state.goods)
-    const page = usePageFromSearchParams(dispath);
+    const page = usePageFromSearchParams(dispatch);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -23,9 +22,9 @@ export const FavoritePage = () =>{
             }else if(page){
                 param.page = page;
             }
-            dispath(fetchCategory(param))
+            dispatch(fetchCategory(param))
         }
-    }, [page, favorites, dispath])
+    }, [page, favorites, dispatch])
 
     return(
     <>

@@ -5,14 +5,14 @@ import { addToFavorite, removeFromFavorite } from "../../features/favoritesSlice
 import cn from "classnames";
 
 export const BtnLike = ({id})=>{
-    const dispath=useDispatch();
+    const dispatch=useDispatch();
     const isFavorite = useSelector(state=>state.favorites.includes(id));
 
     const handleToggleFavorite =()=>{
         if(isFavorite){
-            dispath(removeFromFavorite({id}));
+            dispatch(removeFromFavorite({id}));
         }else{
-            dispath(addToFavorite({id}));
+            dispatch(addToFavorite({id}));
         }
     }
 

@@ -13,12 +13,12 @@ export const Search = ()=>{
     })
 
     const navigate = useNavigate();
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const handleSubmit= ({search}, {resetForm}) => {
         if(search.trim()){
             navigate(`search?q=${search}`);
             resetForm();
-            dispath(toggleSearch(false));
+            dispatch(toggleSearch(false));
         }
     };
 

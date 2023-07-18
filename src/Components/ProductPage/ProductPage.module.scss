@@ -19,6 +19,9 @@
   width: 471px;
   height: 622px;
   object-fit: cover;
+  background: url("/src/assets/preload.gif");
+  background-repeat: no-repeat;
+  background-position: center;
 
   @media (max-width: 1024px) {
     width: 362px;

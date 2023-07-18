@@ -11,14 +11,14 @@ export const CartPage = () =>{
     const {goodsList, status} = useSelector(state => state.goods);
     const {orderStatus} = useSelector(state => state.cart)
     const [count, setCount] = useState(0);
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         if(count !== countItems){
-            dispath(fetchAll({list: cartItems.map(item => item.id)}))
+            dispatch(fetchAll({list: cartItems.map(item => item.id)}))
             setCount(countItems);
         }
-    }, [cartItems, count, countItems, dispath])
+    }, [cartItems, count, countItems, dispatch])
 
     return status==='loading' ? <Preloader/> : (
     <>

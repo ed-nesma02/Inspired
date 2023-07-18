@@ -10,17 +10,18 @@ export const Banner = ({ data})=>{
     const isTablet = useMedia('(max-width: 768px)');
     const isLaptop = useMedia('(max-width: 1024px)');
     const [bgURL, setBgURL] = useState();
-useEffect(() => {
-    if (isMobile) {
-        setBgURL(data?.bg.mobile)
-    } else if (isTablet) {
-        setBgURL(data?.bg.tablet)
-    } else if (isLaptop) {
-        setBgURL(data?.bg.laptop)
-    } else {
-        setBgURL(data?.bg.desktop)
-    }
-}, [isMobile, isTablet, isLaptop, data]);
+
+    useEffect(() => {
+        if (isMobile) {
+            setBgURL(data?.bg.mobile)
+        } else if (isTablet) {
+            setBgURL(data?.bg.tablet)
+        } else if (isLaptop) {
+            setBgURL(data?.bg.laptop)
+        } else {
+            setBgURL(data?.bg.desktop)
+        }
+    }, [isMobile, isTablet, isLaptop, data]);
 
     return(
     <section 

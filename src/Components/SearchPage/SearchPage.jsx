@@ -7,13 +7,13 @@ import { useSearchParams } from "react-router-dom";
 
 export const SearchPage = () =>{
     const {goodsList} = useSelector(state => state.goods);
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
 
     useEffect(()=>{
         const search = searchParams.get('q');
-         dispath(fetchCategory({search, count: 50}));
-    },[dispath, searchParams])
+         dispatch(fetchCategory({search, count: 50}));
+    },[dispatch, searchParams])
 
     return(
         <>
