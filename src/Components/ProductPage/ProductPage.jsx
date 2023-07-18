@@ -45,6 +45,9 @@ export const ProductPage = ()=>{
 
     useEffect(()=>{
         dispatch(fetchProduct(id));
+        setCount(1);
+        setSelectedColor("");
+        setSelectedSize("");
     },[dispatch, id]);
 
     useEffect(()=>{
