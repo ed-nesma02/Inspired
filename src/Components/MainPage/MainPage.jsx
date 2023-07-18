@@ -12,6 +12,7 @@ export const MainPage=()=>{
     const {gender, category} = useParams();
     const dispath = useDispatch();
     const {activeGender, categories, genderList}=useSelector(state=>state.navigation);
+    const {status}=useSelector(state=>state.goods) 
     const genderData = categories[activeGender];
     const categoryData=genderData?.list.find(item => item.slug === category);
     const page = usePageFromSearchParams(dispath);
@@ -41,7 +42,7 @@ export const MainPage=()=>{
         }
     },[page, gender, category ,dispath])
 
-    return ( !genderList ?
+    return ( status==='loading' ?
          <Preloader/> 
         :
         (<>
