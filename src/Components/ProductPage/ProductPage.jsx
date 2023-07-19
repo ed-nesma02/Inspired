@@ -26,6 +26,7 @@ export const ProductPage = ()=>{
     const [count, setCount]=useState(1);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
+    const [formError, setFormError] = useState(true);
 
     const handleIncrement =()=>{
         setCount((prevCount) => ++prevCount)
@@ -41,6 +42,7 @@ export const ProductPage = ()=>{
     };
     const handleSizeChange = (e)=>{
         setSelectedSize(e.target.value);
+        setFormError(true);
     };
 
     useEffect(()=>{
@@ -68,10 +70,14 @@ export const ProductPage = ()=>{
                 <img src={product.pic ? `${API_URL}/${product.pic}` : ''} alt={`${product.title} ${product.description}`} className={s.image} />
                 <form action="" className={s.content} onSubmit={e =>{
                     e.preventDefault();
-                    if(selectedSize){
+                    if(selectedSize && selectedColor && count){
+                        setFormError(true);
                         dispatch(addToCart({
                         id, color: selectedColor, size: selectedSize, count
-                    }))}
+                    }))} else {
+                        setFormError(false);
+                    }
+                    console.log(formError)
                 }}>
                     <h2 className={s.title}>
                         {product.title}
@@ -88,6 +94,7 @@ export const ProductPage = ()=>{
                             handleColorChange={handleColorChange}/>
                     </div>
                     <ProductSize 
+                        formError ={formError}
                         size = {product.size}
                         selectedSize={selectedSize} 
                         handleSizeChange={handleSizeChange}/>

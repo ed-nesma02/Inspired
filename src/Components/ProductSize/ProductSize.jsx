@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import s from './ProductSize.module.scss'
 
-export const ProductSize= ({size, selectedSize, handleSizeChange})=>{
+export const ProductSize= ({formError, size, selectedSize, handleSizeChange})=>{
 
     return(
         <div className={s.size}>
@@ -23,6 +23,7 @@ export const ProductSize= ({size, selectedSize, handleSizeChange})=>{
                     )
                 })}
             </ul>
+            {!formError ? (<p className={s.error}>Выберите размер</p>) : ""}
         </div>
     )
 }

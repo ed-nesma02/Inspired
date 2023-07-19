@@ -6,16 +6,16 @@ import { Count } from '../../../Count/Count';
 import { addToCart, removeFromCart } from '../../../../features/cartSlice';
 
 export const CartItem = ({id, color, size, count, goodsList}) =>{
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const {colorList} = useSelector(state => state.color); 
     const item = goodsList.find(item => item.id === id);
     
     const handleCountChange = (count) =>{
-        dispath(addToCart({id, color, size, count}))
+        dispatch(addToCart({id, color, size, count}))
     }
 
     const handleRemoveItem = (e) =>{
-        dispath(removeFromCart(
+        dispatch(removeFromCart(
            { id, color, size, count}
         ))
     }

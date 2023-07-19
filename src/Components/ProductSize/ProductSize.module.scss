@@ -24,12 +24,27 @@
 }
 
 .list {
+  position:relative;
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
   font-size: 14px;
   line-height: 17px;
   text-transform: uppercase;
+}
+.error {
+  position: absolute;
+  display: inline-block;
+  font-size: 14px;
+  color: tomato;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 540px) {
+    font-size: 10px;
+  }
 }
 
 .item {

@@ -7,9 +7,9 @@ import { useDispatch } from 'react-redux';
 import { sendOrder } from '../../../features/cartSlice';
 
 export const Order = ({cartItems}) =>{
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const handleSubmitOrder = (values) => {
-        dispath(sendOrder({order: cartItems, values}))
+        dispatch(sendOrder({order: cartItems, values}))
     }
 
     const validationSchema = Yup.object({
