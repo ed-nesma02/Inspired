@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {Container} from '../Layout/Container/Container'
 import s from './ProductPage.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,6 +22,7 @@ export const ProductPage = ()=>{
     const {product, status} = useSelector(state=>state.product)
     const {colors} = product;
     const {colorList}=useSelector(state=>state.color); 
+    const addStatus = useRef()
 
     const [count, setCount]=useState(1);
     const [selectedColor, setSelectedColor] = useState('');
@@ -30,19 +31,23 @@ export const ProductPage = ()=>{
 
     const handleIncrement =()=>{
         setCount((prevCount) => ++prevCount)
+        addStatus.current.style.setProperty("--visible-status", "hidden")
     };
     const handleDecrement =()=>{
         if(count>1){
             setCount((prevCount) => --prevCount)
+            addStatus.current.style.setProperty("--visible-status", "hidden")
         }
     };
 
     const handleColorChange = (e)=>{
         setSelectedColor(e.target.value);
+        addStatus.current.style.setProperty("--visible-status", "hidden")
     };
     const handleSizeChange = (e)=>{
         setSelectedSize(e.target.value);
         setFormError(true);
+        addStatus.current.style.setProperty("--visible-status", "hidden")
     };
 
     useEffect(()=>{
@@ -72,6 +77,7 @@ export const ProductPage = ()=>{
                     e.preventDefault();
                     if(selectedSize && selectedColor && count){
                         setFormError(true);
+                        addStatus.current.style.setProperty("--visible-status", "visible")
                         dispatch(addToCart({
                         id, color: selectedColor, size: selectedSize, count
                     }))} else {
@@ -104,7 +110,7 @@ export const ProductPage = ()=>{
                     </div>
                     <div className={s.control}>
                         <Count classNames={s.count} count={count} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
-                        <button className={s.addCart} type='submit'>В корзину</button>
+                        <button className={s.addCart} ref={addStatus} style={{"--visible-status": "hidden"}} type='submit'>В корзину</button>
                         <BtnLike id={id}/>
                     </div>
                 </form>

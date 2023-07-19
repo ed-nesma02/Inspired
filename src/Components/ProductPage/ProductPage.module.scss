@@ -175,6 +175,7 @@
 }
 
 .addCart {
+  position: relative;
   background-color: #000;
   color: #fff;
   font-weight: 700;
@@ -185,7 +186,18 @@
   border: none;
   padding: 14px 41px 15px;
   margin-right: 16px;
-
+  transition: background-color 0.2s ease-in-out;
+  &:hover{
+    background-color: #8A8A8A;
+  }
+  &::after{
+    content: "✓ Добавлено";
+    visibility: var(--visible-status);
+    position: absolute;
+    color: green;
+    bottom: -26px;
+    left: 28px;
+  }
   @media (max-width: 768px) {
     padding: 12px 41px;
     font-size: 10px;
