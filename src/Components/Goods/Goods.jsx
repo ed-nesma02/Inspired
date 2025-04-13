@@ -29,7 +29,7 @@ export const Goods = ({title}) => {
                 </li>
               ))}
             </ul>
-            <Pagination />
+            {title !== 'Вам также может понравиться' && <Pagination />}
           </>
         )}
       </Container>

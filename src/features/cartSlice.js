@@ -7,6 +7,9 @@ export const sendOrder = createAsyncThunk('cart/sendOrder', async (data) => {
   const url = new URL(ORDER_URL);
   const reponse = await fetch(url, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(data),
   });
   return await reponse.json();

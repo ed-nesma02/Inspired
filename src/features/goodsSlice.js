@@ -6,6 +6,7 @@ export const fetchGender = createAsyncThunk(
   async (gender) => {
     const url = new URL(GOODS_URL);
     url.searchParams.append('gender', gender);
+    url.searchParams.append('count', 8);
     const reponse = await fetch(url);
     return await reponse.json();
   }
@@ -14,7 +15,9 @@ export const fetchGender = createAsyncThunk(
 export const fetchAll = createAsyncThunk('goods/fetchAll', async (param) => {
   const url = new URL(GOODS_URL);
   for (const key in param) {
-    url.searchParams.append(key, param[key]);
+    if (Object.prototype.hasOwnProperty.call(param, key)) {
+      url.searchParams.append(key, param[key]);
+    }
   }
   url.searchParams.append('count', 'all');
   const reponse = await fetch(url);
@@ -26,7 +29,9 @@ export const fetchCategory = createAsyncThunk(
   async (param) => {
     const url = new URL(GOODS_URL);
     for (const key in param) {
-      url.searchParams.append(key, param[key]);
+      if (Object.prototype.hasOwnProperty.call(param, key)) {
+        url.searchParams.append(key, param[key]);
+      }
     }
     const reponse = await fetch(url);
     return await reponse.json();
@@ -56,7 +61,7 @@ const goodsSlice = createSlice({
       })
       .addCase(fetchGender.fulfilled, (state, action) => {
         state.status = 'success';
-        state.goodsList = action.payload;
+        state.goodsList = action.payload.goods;
         state.pages = 0;
         state.totalCount = null;
       })
@@ -87,7 +92,7 @@ const goodsSlice = createSlice({
       })
       .addCase(fetchAll.fulfilled, (state, action) => {
         state.status = 'success';
-        state.goodsList = action.payload;
+        state.goodsList = action.payload.goods;
         state.pages = 0;
         state.totalCount = null;
       })
